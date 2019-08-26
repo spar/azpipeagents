@@ -30,7 +30,7 @@ namespace AciManagerFuncApp
 		}
 
 		[FunctionName("AciStopTimer")]
-		public static async Task AciStopTimer([TimerTrigger("0 0 18 * * *", RunOnStartup = true)]TimerInfo myTimer, ILogger log, ExecutionContext context)
+		public static async Task AciStopTimer([TimerTrigger("0 0 18 * * *")]TimerInfo myTimer, ILogger log, ExecutionContext context)
 		{
 			log.LogInformation($"C# Timer trigger function AciStopTimer executed at: {DateTime.Now}");
 			try
