@@ -67,18 +67,16 @@ namespace AciManagerFuncApp
 
 		private static async Task Stop(IAzure azure, ILogger log)
 		{
-
-			var containers = azure
+			var containers = await azure
 				.ContainerGroups
-				.List()
-				.ToList();
-
+				.ListAsync();
+				
 			var acis = ContainerGroupNames.Split(",");
 			foreach (var aci in acis)
 			{
 				await azure
 					.ContainerGroups
-					.GetById(containers.FirstOrDefault(x => x.Name == aci)?.Id)
+					.GetById(containers.SingleOrDefault(x => x.Name == aci && x.ResourceGroupName == ResourceGroupName)?.Id)
 					.StopAsync();
 				log.LogInformation($"${aci} has been stopped");
 			}
